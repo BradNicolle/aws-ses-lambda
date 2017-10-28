@@ -1,0 +1,9 @@
+{
+	"name": "aws-ses-lambda",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"aws-sdk": "~2.1.35",
+		"vandium": "4.1.0"
+	}
+}

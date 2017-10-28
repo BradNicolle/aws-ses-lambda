@@ -1,0 +1,13 @@
+service: aws-ses-lambda
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+functions:
+  sendEmail:
+    handler: handler.sendEmail
+    events:
+      - http:
+          path: sendEmail
+          method: post
