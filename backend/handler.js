@@ -1,6 +1,11 @@
 'use strict';
 
 const vandium = require('vandium');
+const aws = require('aws-sdk');
+const ses = new aws.SES();
+
+const FROM_ADDRESS = "quotes@qraken.com";
+const TO_ADDRESS = 'bradnicolle@gmail.com';
 
 module.exports.sendEmail = vandium.api().POST(
   {
@@ -16,10 +21,35 @@ module.exports.sendEmail = vandium.api().POST(
     const subject = body.subject;
     const msgBody = body.msgBody;
 
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify(body)
+    const params = {
+      Destination: {
+        ToAddresses: [
+          TO_ADDRESS
+        ]
+      },
+      Message: {
+        Body: {
+          Text: {
+            Data: msgBody
+          }
+        },
+        Subject: {
+          Data: subject
+        }
+      },
+      Source: FROM_ADDRESS
     };
-    callback(null, response);
+
+    ses.sendEmail(params, (err, data) => {
+      if (err) callback(null, genResponse(500, "Error sending email"));
+      else callback(null, genResponse(200, "Successfully sent email"));
+    });
   }
 );
+
+function genResponse(status, body) {
+  return {
+    statusCode: status,
+    body: JSON.stringify(body)
+  };
+}

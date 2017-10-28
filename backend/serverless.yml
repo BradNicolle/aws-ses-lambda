@@ -3,6 +3,11 @@ service: aws-ses-lambda
 provider:
   name: aws
   runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ses:SendEmail
+      Resource: "*"
 
 functions:
   sendEmail:
