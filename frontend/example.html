@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>aws-ses-lambda example form</title>
+	<script src="https://www.google.com/recaptcha/api.js"></script>
+	<script src="aws-ses-lambda.js"></script>
+</head>
+
+<body>
+	<form id="example-form" action="?" method="POST">
+		<input type="text" name="message" />
+		<button
+			class="g-recaptcha"
+			data-sitekey=""
+			data-callback="submitForm">
+			Submit
+		</button>
+</body>
+
+</html>
